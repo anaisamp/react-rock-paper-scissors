@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import RockPaperScissors from './components/RockPaperScissors';
 import Move from './components/Move';
-
+import ResultLabel from './components/ResultLabel';
 import './App.css';
 
-const winnerMoves = {
+export const winnerMoves = {
 	'Rock': {
-		wins: ['Scissors'],
+    wins: ['Scissors'],
+    icon: '👊',
 	},
   'Paper': {
-		wins: ['Rock'],
+    wins: ['Rock'],
+    icon: '✋️',
 	},
 	'Scissors': {
-		wins: ['Paper'],
+    wins: ['Paper'],
+    icon: '✌️',
 	},
 };
 
@@ -22,115 +24,102 @@ export const getRandomNumber = () => {
   return Math.floor(Math.random() * possibleMoves.length + 1);
 };
 
-export const getWinner = (userMove, computerMove) => {
-  if (userMove === computerMove) return 0;
-  const n = winnerMoves[userMove].wins.some(wins => wins === computerMove) ? 1 : 2;
-  return n;
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
         userMove: null,
         computerMove: null,
-        winner: null
+        winner: null,
+        userWins: 0,
+        computerWins: 0,
     };
-}
+  }
 
   getRandomMove = () => {
-    const randomOption = getRandomNumber();
-    let computerOption = {
+    const randomNumber = getRandomNumber();
+    let computerRandomMove = {
       text: '',
       icon: '',
     };
-    switch(randomOption) {
+
+    switch(randomNumber) {
         case 1:
-          computerOption = {
+          computerRandomMove = {
             text: 'Rock',
-            icon: '👊',
+            icon: winnerMoves['Rock'].icon,
           }
           break;
         case 2:
-          computerOption = {
+          computerRandomMove = {
             text: 'Paper',
-            icon: '✋️',
+            icon: winnerMoves['Paper'].icon,
           }
           break;
         default:
-          computerOption = {
+          computerRandomMove = {
             text: 'Scissors',
-            icon: '✌️',
+            icon: winnerMoves['Scissors'].icon,
           }
           break;
     }
-    return computerOption;
+    return computerRandomMove;
   };
 
-  getUserMove = (option) => {
-    const icons = {
-      'Rock': '👊',
-      'Paper':'✋️',
-      'Scissors': '✌️',
-    }
-    const nextComputerMove = this.getRandomMove();
-  
-    this.setState({
-      userMove: {
-        text: option,
-        icon: icons[`${option}`],
-      },
-      computerMove: nextComputerMove,
-      winner: getWinner(option, nextComputerMove.text)
-  });
-  console.log(this.state);
+  getWinner = (userMove, computerMove) => {
+    if (userMove === computerMove) return 0;
+    return winnerMoves[userMove].wins.some(wins => wins === computerMove) ? 1 : 2;
   }
 
-  getWinnerLabel = () => {
-    let winnerLabel = "";
+  getUserMoveAndUpdateState = (userMoveText) => {
+    const nextComputerMove = this.getRandomMove();
+    const nextUserMove = {
+      text: userMoveText,
+      icon: winnerMoves[`${userMoveText}`].icon,
+    }
+    const nextWinner = this.getWinner(nextUserMove.text, nextComputerMove.text);
 
-    if(this.state.winner === 0){
-    winnerLabel = (<p className="black">Tied</p>);
-    }
-    else if(this.state.winner === 1) {
-    winnerLabel = (<p className="green">You won!</p>);
-    }
-    else if(this.state.winner === 2) {
-    winnerLabel = (<p className="red">You lost!</p>);
-    }
-    return winnerLabel;
+    this.setState((prevState) => {
+      return {
+        userMove: nextUserMove,
+        computerMove: nextComputerMove,
+        winner: nextWinner,
+        userWins: (nextWinner === 1) ? prevState.userWins + 1 : prevState.userWins,
+        computerWins: (nextWinner === 2) ? prevState.computerWins + 1 : prevState.computerWins,
+      }
+    });
   }
 
   render() {
     return (
-      <div className="App">
         <div className="wrapper">
           <aside className="aside aside-1">
             <h2>You</h2>
-            <p>0 points</p>
-            <button className="button" onClick={ () => this.getUserMove('Rock') }>
-                <span className="icon" role="img" aria-label="Rock">👊</span>
-            </button>
-            <button className="button" onClick={ () => this.getUserMove('Paper') }>
-                <span className="icon" role="img" aria-label="Paper">✋️</span>
-            </button>
-            <button className="button" onClick={ () => this.getUserMove('Scissors') }>
-                <span className="icon" role="img" aria-label="Scissors">✌️</span>
-            </button>
+            <p>{this.state.userWins} point(s)</p>
           </aside>
           <article className="main">
-            <Move selectedOption = { this.state.userMove || '?' } />
-              <span>vs.</span>
-            <Move selectedOption = { this.state.computerMove || '?' } />
-            { this.getWinnerLabel() }
+            <div className="movesWrapper">
+              <Move selectedOption = { this.state.userMove || '' } />
+                <span>vs.</span>
+              <Move selectedOption = { this.state.computerMove || '' } />
+            </div>
+            <ResultLabel winner={ this.state.winner } />
           </article>
           <aside className="aside aside-2">
             <h2>Computer</h2>
-            <p>0 points</p>
-            <RockPaperScissors />
+            <p> {this.state.computerWins} point(s)</p>
           </aside>
+          <footer className="footer">
+          { 
+              possibleMoves.map((move) => {
+                return (
+                  <button className="button" key={move} onClick={ () => this.getUserMoveAndUpdateState(move) }>
+                    <span className="icon" role="img" aria-label={ move }> { winnerMoves[move].icon }</span>
+                  </button>);
+              })
+            }
+          </footer>
         </div>
-      </div>
     );
   }
 }

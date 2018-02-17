@@ -1,0 +1,13 @@
+.green {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.red {
+    color: #f34a58;
+    font-weight: bold;
+}
+
+.bold {
+    font-weight: bold;
+}
