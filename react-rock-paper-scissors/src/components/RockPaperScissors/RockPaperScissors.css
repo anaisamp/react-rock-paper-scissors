@@ -1,0 +1,20 @@
+.icon {
+    font-size: 30px;
+    cursor: pointer;
+    padding-top: 6px;
+    display: inline-block;
+    vertical-align: middle;
+}
+  
+.button {
+    display: block;
+    background-color: #fff;
+    margin: 12px auto;
+    border: none;
+    height: 60px;
+    outline: none;
+    width: 60px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
