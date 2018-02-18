@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Move component renders Paper icon when user has selected Paper 1`] = `
+<div
+  className="round"
+>
+  <span
+    aria-label="Paper"
+    className="movedIcon"
+    role="img"
+  >
+    ✋️
+  </span>
+</div>
+`;
+
+exports[`Move component renders Rock icon when user has selected Rock 1`] = `
+<div
+  className="round"
+>
+  <span
+    aria-label="Rock"
+    className="movedIcon"
+    role="img"
+  >
+    👊
+  </span>
+</div>
+`;
+
+exports[`Move component renders Scissors icon when user has selected Scissors 1`] = `
+<div
+  className="round"
+>
+  <span
+    aria-label="Scissors"
+    className="movedIcon"
+    role="img"
+  >
+    ✌️
+  </span>
+</div>
+`;
+
+exports[`Move component renders pulsing icon when user doesn't have a selected option 1`] = `
+<div
+  className="round"
+>
+  <div
+    className="pulsingIcon"
+  >
+    <span
+      aria-label="Waiting for the first move"
+      className="movedIcon"
+      role="img"
+    >
+      👊
+    </span>
+  </div>
+</div>
+`;

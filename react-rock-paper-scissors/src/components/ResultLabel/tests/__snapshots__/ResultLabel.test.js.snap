@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultLabel component displays "Computer wins" message in red if the winner is the computer (2) 1`] = `
+<p
+  className="red"
+>
+   
+  Computer wins
+   
+</p>
+`;
+
+exports[`ResultLabel component displays "Fight!" message if the game didn't start 1`] = `
+<p
+  className=""
+>
+   
+  Fight!
+   
+</p>
+`;
+
+exports[`ResultLabel component displays "Tied" message in bold if tied (0) 1`] = `
+<p
+  className="bold"
+>
+   
+  Tied
+   
+</p>
+`;
+
+exports[`ResultLabel component displays "You win!" message in green if the winner is the user (1) 1`] = `
+<p
+  className="green"
+>
+   
+  You win!
+   
+</p>
+`;
