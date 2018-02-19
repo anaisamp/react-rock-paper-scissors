@@ -20,8 +20,13 @@ export const winnerMoves = {
 
 const possibleMoves = Object.keys(winnerMoves);
 
-export const getRandomNumber = () => {
-  return Math.floor(Math.random() * possibleMoves.length + 1);
+export const getRandomNumber = (x, y) => {
+  return Math.floor(Math.random() * x + y);
+};
+
+export const getWinner = (userMove, computerMove) => {
+  if (userMove === computerMove) return 0;
+  return winnerMoves[userMove].wins.some(wins => wins === computerMove) ? 1 : 2;
 };
 
 class App extends Component {
@@ -36,13 +41,12 @@ class App extends Component {
     };
   }
 
-  getRandomMove = () => {
-    const randomNumber = getRandomNumber();
+ getRandomMove = () => {
+    const randomNumber = getRandomNumber(possibleMoves.length, 1);
     let computerRandomMove = {
       text: '',
       icon: '',
     };
-
     switch(randomNumber) {
         case 1:
           computerRandomMove = {
@@ -56,6 +60,7 @@ class App extends Component {
             icon: winnerMoves['Paper'].icon,
           }
           break;
+        case 3:
         default:
           computerRandomMove = {
             text: 'Scissors',
@@ -65,19 +70,14 @@ class App extends Component {
     }
     return computerRandomMove;
   };
-
-  getWinner = (userMove, computerMove) => {
-    if (userMove === computerMove) return 0;
-    return winnerMoves[userMove].wins.some(wins => wins === computerMove) ? 1 : 2;
-  }
-
+  
   getUserMoveAndUpdateState = (userMoveText) => {
     const nextComputerMove = this.getRandomMove();
     const nextUserMove = {
       text: userMoveText,
       icon: winnerMoves[`${userMoveText}`].icon,
     }
-    const nextWinner = this.getWinner(nextUserMove.text, nextComputerMove.text);
+    const nextWinner = getWinner(nextUserMove.text, nextComputerMove.text);
 
     this.setState((prevState) => {
       return {
@@ -113,7 +113,7 @@ class App extends Component {
           { 
               possibleMoves.map((move) => {
                 return (
-                  <button className="button" key={move} onClick={ () => this.getUserMoveAndUpdateState(move) }>
+                  <button className={`button ${move}`} key={move} onClick={ () => this.getUserMoveAndUpdateState(move) }>
                     <span className="icon" role="img" aria-label={ move }> { winnerMoves[move].icon }</span>
                   </button>);
               })

@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders initial state before game start 1`] = `
+<div
+  className="wrapper"
+>
+  <aside
+    className="aside aside-1"
+  >
+    <h2>
+      You
+    </h2>
+    <p>
+      0
+       point(s)
+    </p>
+  </aside>
+  <article
+    className="main"
+  >
+    <div
+      className="movesWrapper"
+    >
+      <Move
+        selectedOption=""
+      />
+      <span>
+        vs.
+      </span>
+      <Move
+        selectedOption=""
+      />
+    </div>
+    <ResultLabel
+      winner={null}
+    />
+  </article>
+  <aside
+    className="aside aside-2"
+  >
+    <h2>
+      Computer
+    </h2>
+    <p>
+       
+      0
+       point(s)
+    </p>
+  </aside>
+  <footer
+    className="footer"
+  >
+    <button
+      className="button Rock"
+      key="Rock"
+      onClick={[Function]}
+    >
+      <span
+        aria-label="Rock"
+        className="icon"
+        role="img"
+      >
+         
+        👊
+      </span>
+    </button>
+    <button
+      className="button Paper"
+      key="Paper"
+      onClick={[Function]}
+    >
+      <span
+        aria-label="Paper"
+        className="icon"
+        role="img"
+      >
+         
+        ✋️
+      </span>
+    </button>
+    <button
+      className="button Scissors"
+      key="Scissors"
+      onClick={[Function]}
+    >
+      <span
+        aria-label="Scissors"
+        className="icon"
+        role="img"
+      >
+         
+        ✌️
+      </span>
+    </button>
+  </footer>
+</div>
+`;

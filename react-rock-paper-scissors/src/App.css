@@ -30,20 +30,19 @@
   .aside-1 { order: 1; } 
   .main    { order: 2; }
   .aside-2 { order: 3; }
-  .footer  { order: 4; }
+
+  .wrapper {
+    margin: 106px 0 0; 
+    margin: 18vh 0 0; 
+  }
 }
 
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background: #ff6347;
   padding: 24px 0;
-}
-
-@media all and (min-width: 800px) {
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
 }
 
 .button {
